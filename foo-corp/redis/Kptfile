@@ -1,0 +1,32 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: redis-operator
+upstream:
+  type: git
+  git:
+    commit: a65b26621b28df81a84bbfbda04c808622b9fb86
+    repo: http://github.com/roro-vetro/kpt
+    directory: /
+    ref: master
+packageMetadata:
+  tags:
+  - kpt.dev/app=redis-operator
+  shortDescription: kpt redis operator package
+openAPI:
+  definitions:
+    io.k8s.cli.setters.name:
+      description: application name
+      type: string
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: name
+          value: redis-operator
+    io.k8s.cli.setters.namespace:
+      type: string
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: namespace
+          value: redis
