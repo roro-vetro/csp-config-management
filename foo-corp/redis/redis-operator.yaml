@@ -5,15 +5,11 @@ metadata:
   labels:
     name: redis-operator # {"$kpt-set":"name"}
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: redis-operator # {"$kpt-set":"name"}
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-operator # {"$kpt-set":"name"}
+  namespace: redis # {"$kpt-set":"namespace"}
 spec:
   replicas: 1
   selector:
@@ -43,3 +39,103 @@ spec:
               fieldPath: metadata.name
         - name: OPERATOR_NAME
           value: "redis-operator"
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: redis-operator # {"$kpt-set":"name"}
+subjects:
+- kind: ServiceAccount
+  name: redis-operator # {"$kpt-set":"name"}
+  namespace: redis # {"$kpt-set":"namespace"}
+roleRef:
+  kind: Role
+  name: redis-operator # {"$kpt-set":"name"}
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: redis-operator # {"$kpt-set":"name"}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - endpoints
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - services
+  - events
+  verbs:
+  - create
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - replicasets
+  - statefulsets
+  verbs:
+  - create
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - create
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resourceNames:
+  - redis-operator # {"$kpt-set":"name"}
+  resources:
+  - deployments/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - redis.kun
+  resources:
+  - '*'
+  verbs:
+  - delete
+  - deletecollection
+  - get
+  - list
+  - patch
+  - update
+  - watch
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: redis-operator # {"$kpt-set":"name"}
+  namespace: redis # {"$kpt-set":"namespace"}
