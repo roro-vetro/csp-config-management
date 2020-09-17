@@ -5,8 +5,8 @@ metadata:
 upstream:
   type: git
   git:
-    commit: a65b26621b28df81a84bbfbda04c808622b9fb86
-    repo: http://github.com/roro-vetro/kpt
+    commit: f00207f3241a0e93abf3e1751d29a1207d4b679e
+    repo: https://github.com/roro-vetro/kpt
     directory: /
     ref: master
 packageMetadata:

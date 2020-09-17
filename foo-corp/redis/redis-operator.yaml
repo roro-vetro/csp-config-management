@@ -5,6 +5,7 @@ metadata:
   labels:
     name: redis-operator # {"$kpt-set":"name"}
 apiVersion: v1
+---
 kind: ServiceAccount
 metadata:
   name: redis-operator # {"$kpt-set":"name"}
