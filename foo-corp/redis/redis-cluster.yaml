@@ -25,4 +25,4 @@ spec:
         storageClassName: alicloud-disk-ssd
         resources:
           requests:
-            storage: 1Gi # {"$kpt-set":"storage-size"}
+            storage: 20Gi # {"$kpt-set":"storage-size"}
