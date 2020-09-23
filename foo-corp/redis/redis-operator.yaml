@@ -3,30 +3,30 @@ kind: Namespace
 metadata:
   name: redis # {"$kpt-set":"namespace"}
   labels:
-    name: redis-operator # {"$kpt-set":"name"}
+    name: redis-operator
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-operator # {"$kpt-set":"name"}
+  name: redis-operator
   namespace: redis # {"$kpt-set":"namespace"}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: redis-operator # {"$kpt-set":"name"}
+      name: redis-operator
   template:
     metadata:
       labels:
-        name: redis-operator # {"$kpt-set":"name"}
+        name: redis-operator
     spec:
-      serviceAccountName: redis-operator # {"$kpt-set":"name"}
+      serviceAccountName: redis-operator
       containers:
-      - name: redis-operator # {"$kpt-set":"name"}
+      - name: redis-operator
         # Replace this with the built image name
         image: fishu/redis-operator:latest
         command:
-        - redis-operator # {"$kpt-set":"name"}
+        - redis-operator
         imagePullPolicy: Always
         env:
         - name: WATCH_NAMESPACE
@@ -43,20 +43,20 @@ spec:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: redis-operator # {"$kpt-set":"name"}
+  name: redis-operator
 subjects:
 - kind: ServiceAccount
-  name: redis-operator # {"$kpt-set":"name"}
+  name: redis-operator
   namespace: redis # {"$kpt-set":"namespace"}
 roleRef:
   kind: Role
-  name: redis-operator # {"$kpt-set":"name"}
+  name: redis-operator
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: redis-operator # {"$kpt-set":"name"}
+  name: redis-operator
 rules:
 - apiGroups:
   - ""
@@ -116,7 +116,7 @@ rules:
 - apiGroups:
   - apps
   resourceNames:
-  - redis-operator # {"$kpt-set":"name"}
+  - redis-operator
   resources:
   - deployments/finalizers
   verbs:
@@ -137,5 +137,5 @@ rules:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: redis-operator # {"$kpt-set":"name"}
+  name: redis-operator
   namespace: redis # {"$kpt-set":"namespace"}

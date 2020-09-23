@@ -5,7 +5,7 @@ metadata:
 upstream:
   type: git
   git:
-    commit: 831f8ac142b6e51593d646175e73679f037a0649
+    commit: 2e9a5548317d447a0c5c5474c0d3e23cf2f57ac5
     repo: https://github.com/roro-vetro/kpt
     directory: /
     ref: master
@@ -15,14 +15,13 @@ packageMetadata:
   shortDescription: kpt redis operator package
 openAPI:
   definitions:
-    io.k8s.cli.setters.name:
-      description: application name
+    io.k8s.cli.setters.cluster-name:
+      description: Redis cluster name
       type: string
       x-k8s-cli:
         setter:
-          isSet: true
-          name: name
-          value: redis-operator
+          name: cluster-name
+          value: redis
     io.k8s.cli.setters.namespace:
       type: string
       x-k8s-cli:
@@ -30,3 +29,34 @@ openAPI:
           isSet: true
           name: namespace
           value: redis
+    io.k8s.cli.setters.password:
+      description: Redis AUTH password
+      type: string
+      x-k8s-cli:
+        setter:
+          name: password
+          value: password
+    io.k8s.cli.setters.pvc:
+      description: Persistant Volume Claim(PVC) for Redis cluster.
+      type: string
+      x-k8s-cli:
+        setter:
+          name: pvc
+          value: redis
+    io.k8s.cli.setters.replica-size:
+      description: Number of database replication
+      pattern: ^[0-9]+$
+      type: string
+      x-k8s-cli:
+        setter:
+          name: replica-size
+          value: "3"
+    io.k8s.cli.setters.storage-size:
+      description: The size of the Persistant Volume Claim(PVC) for Redis cluster.
+        Must use a Kuberentes resource value, e.g. 20Gi, 20G, 12e6.
+      pattern: (\+)?(([0-9]+(\.)?[0-9]*)|(\.[0-9]+))(Ki|Mi|Gi|Ti|Pi|Ei|m|""|K|M|G|T|P|E|((e|E)(\+|-)?(([0-9]+(\.)?[0-9]*)|(\.[0-9]+))))
+      type: string
+      x-k8s-cli:
+        setter:
+          name: storage-size
+          value: 1Gi
