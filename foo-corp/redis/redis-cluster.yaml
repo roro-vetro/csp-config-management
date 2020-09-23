@@ -5,7 +5,7 @@ metadata:
   namespace: redis # {"$kpt-set":"namespace"}
 spec:
   size: 3 # {"$kpt-set":"replica-size"}
-  password: null # {"$kpt-set":"password"}
+  password: "" # {"$kpt-set":"password"}
   image: redis:5.0.4-alpine
   monitor:
     image: oliver006/redis_exporter
