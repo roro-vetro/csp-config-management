@@ -22,6 +22,7 @@ spec:
       spec:
         accessModes:
         - ReadWriteOnce
+        storageClassName: redis
         resources:
           requests:
             storage: 1Gi # {"$kpt-set":"storage-size"}
