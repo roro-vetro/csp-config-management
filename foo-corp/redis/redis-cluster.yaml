@@ -6,7 +6,7 @@ metadata:
 spec:
   size: 3 # {"$kpt-set":"replica-size"}
   # Leave empty if you don't want to set password
-  password: "" # {"$kpt-set":"password"}
+  password: "test" # {"$kpt-set":"password"}
   image: redis:5.0.4-alpine
   monitor:
     image: oliver006/redis_exporter
@@ -25,7 +25,7 @@ spec:
       spec:
         accessModes:
         - ReadWriteOnce
-        storageClassName: alicloud-disk-ssd # {"$kpt-set":"storage-class"}
+        storageClassName: redis # {"$kpt-set":"storage-class"}
         resources:
           requests:
             storage: 20Gi # {"$kpt-set":"storage-size"}
