@@ -13,6 +13,8 @@ spec:
   # change the configurations
   config:
     loglevel: debug
+  monitor:
+    image: oliver006/redis_exporter
   # Set to false to add persistence to Redis data.
   disablePersistence: false
   storage:
